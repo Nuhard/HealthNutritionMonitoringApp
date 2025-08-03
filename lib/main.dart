@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
 
       title: 'Health & Nutrition App',
+      debugShowCheckedModeBanner: false,
 
       theme: ThemeData(
 
