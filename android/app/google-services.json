@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "198400828838",
+    "project_id": "healthnutritionmonitoringapp",
+    "storage_bucket": "healthnutritionmonitoringapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:198400828838:android:8aa9a1fcc0fda231995b67",
+        "android_client_info": {
+          "package_name": "com.example.my_health_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBy9q1_PI94DQI8l6eh52PUwCGI5q-az6M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
