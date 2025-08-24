@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../services/auth_service.dart';
 import 'profile_screen.dart';
+import 'health_log.dart'; // Import health logs screen
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -94,6 +95,53 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  /// 👇 New health log card widget
+  Widget _buildHealthLogCard() {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      elevation: 6,
+      margin: EdgeInsets.only(top: 20),
+      child: Padding(
+        padding: EdgeInsets.all(20),
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 35,
+              backgroundColor: Colors.orange.shade300,
+              child: Icon(Icons.health_and_safety, size: 40, color: Colors.white),
+            ),
+            SizedBox(width: 15),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Health Logs",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.teal[800])),
+                  SizedBox(height: 6),
+                  Text("Track your meals, activity, weight & mood daily.",
+                      style: TextStyle(color: Colors.grey[700], fontSize: 14)),
+                ],
+              ),
+            ),
+            IconButton(
+              icon: Icon(Icons.add_circle, size: 32, color: Colors.teal[700]),
+              tooltip: "Add / View Logs",
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HealthLogScreen()),
+                );
+              },
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (isLoading) {
@@ -117,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.teal,
         elevation: 0,
       ),
-      body: Container(
+      body: SingleChildScrollView(
         padding: EdgeInsets.all(20),
         child: Column(
           children: [
@@ -152,20 +200,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ProfileForm(
-                                  existingData: profileData)), // pass existing data
-                        ).then((_) => _checkProfile()); // refresh after save
+                              builder: (context) =>
+                                  ProfileForm(existingData: profileData)),
+                        ).then((_) => _checkProfile());
                       },
                     ),
                   ],
                 ),
               ),
             ),
-            
+            /// 👇 Add health log card under profile card
+            _buildHealthLogCard(),
           ],
         ),
       ),
     );
   }
 }
-
+ 
