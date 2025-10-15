@@ -1,0 +1,46 @@
+{
+  "symptoms": [
+    {
+      "id": "s001",
+      "name": "Fever",
+      "category": "General",
+      "severity_indicators": {
+        "mild": "Temperature 37.5°C - 38.3°C",
+        "moderate": "Temperature 38.3°C - 39.4°C",
+        "severe": "Temperature above 39.4°C"
+      },
+      "possible_conditions": ["Common Cold", "Flu", "Viral Infection"],
+      "when_to_see_doctor": ["Fever above 39.4°C", "Fever lasting more than 3 days"],
+      "home_remedies": ["Stay hydrated", "Rest adequately", "Take paracetamol"],
+      "dietary_advice": ["Drink plenty of fluids", "Eat light foods"]
+    },
+    {
+      "id": "s002",
+      "name": "Headache",
+      "category": "Neurological",
+      "severity_indicators": {
+        "mild": "Dull ache, can continue daily activities",
+        "moderate": "Throbbing pain, affects concentration",
+        "severe": "Intense pain, unable to function"
+      },
+      "possible_conditions": ["Tension Headache", "Migraine", "Dehydration"],
+      "when_to_see_doctor": ["Sudden severe headache", "Headache with vision changes"],
+      "home_remedies": ["Rest in quiet room", "Apply cold compress", "Stay hydrated"],
+      "dietary_advice": ["Drink adequate water", "Avoid caffeine"]
+    },
+    {
+      "id": "s003",
+      "name": "Cough",
+      "category": "Respiratory",
+      "severity_indicators": {
+        "mild": "Occasional dry cough",
+        "moderate": "Frequent cough with mucus",
+        "severe": "Persistent cough with blood"
+      },
+      "possible_conditions": ["Common Cold", "Bronchitis", "Allergies"],
+      "when_to_see_doctor": ["Coughing up blood", "High fever with cough"],
+      "home_remedies": ["Stay hydrated", "Use honey", "Steam inhalation"],
+      "dietary_advice": ["Warm fluids like tea", "Honey and lemon water"]
+    }
+  ]
+}

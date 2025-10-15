@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class ProfileForm extends StatefulWidget {
-  final Map<String, dynamic>? existingData; // <-- pass existing data from HomeScreen
+  final Map<String, dynamic>? existingData;
 
   const ProfileForm({super.key, this.existingData});
 
@@ -14,19 +14,17 @@ class ProfileForm extends StatefulWidget {
 class _ProfileFormState extends State<ProfileForm> {
   final _formKey = GlobalKey<FormState>();
 
-  // Controllers
   late TextEditingController _nameController;
   late TextEditingController _ageController;
   late TextEditingController _weightController;
   late TextEditingController _heightController;
 
-  String _selectedGender = "Male"; // default value
+  String _selectedGender = "Male";
 
   @override
   void initState() {
     super.initState();
 
-    // Initialize controllers with existing data if available
     _nameController = TextEditingController(
         text: widget.existingData != null ? widget.existingData!["name"] : "");
     _ageController = TextEditingController(
@@ -53,7 +51,6 @@ class _ProfileFormState extends State<ProfileForm> {
       if (user != null) {
         final uid = user.uid;
 
-        // Save or update Firestore
         await FirebaseFirestore.instance.collection("profiles").doc(uid).set({
           "name": _nameController.text.trim(),
           "age": int.tryParse(_ageController.text.trim()) ?? 0,
@@ -63,7 +60,6 @@ class _ProfileFormState extends State<ProfileForm> {
           "updatedAt": FieldValue.serverTimestamp(),
         });
 
-        // Show centered floating snackbar
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: const Text("Profile saved successfully ✅"),
@@ -75,100 +71,184 @@ class _ProfileFormState extends State<ProfileForm> {
           ),
         );
 
-        // Navigate back to HomeScreen
-        Navigator.pop(context, true); // pass true to indicate updated
+        Navigator.pop(context, true);
       }
     }
+  }
+
+  InputDecoration _inputDecoration() {
+    return InputDecoration(
+      filled: true,
+      fillColor: Colors.white.withOpacity(0.95),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide.none,
+      ),
+    );
+  }
+
+  Widget _buildFieldLabel(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 6, left: 4),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          color: Colors.black87,
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text("👤 Profile & Settings"),
-        centerTitle: true,
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Form(
-          key: _formKey,
-          child: ListView(
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.teal.shade300, Colors.purple.shade200],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(20, 40, 20, 40),
+          child: Column(
             children: [
-              TextFormField(
-                controller: _nameController,
-                decoration: const InputDecoration(
-                  labelText: "Name",
-                  border: OutlineInputBorder(),
+              // Header
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(vertical: 30),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.teal.shade400, Colors.purple.shade300],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                validator: (value) =>
-                    value!.isEmpty ? "Please enter your name" : null,
-              ),
-              const SizedBox(height: 16),
-
-              TextFormField(
-                controller: _ageController,
-                decoration: const InputDecoration(
-                  labelText: "Age",
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.number,
-                validator: (value) =>
-                    value!.isEmpty ? "Please enter your age" : null,
-              ),
-              const SizedBox(height: 16),
-
-              DropdownButtonFormField<String>(
-                value: _selectedGender,
-                items: ["Male", "Female", "Other"]
-                    .map((gender) => DropdownMenuItem(
-                          value: gender,
-                          child: Text(gender),
-                        ))
-                    .toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _selectedGender = value!;
-                  });
-                },
-                decoration: const InputDecoration(
-                  labelText: "Gender",
-                  border: OutlineInputBorder(),
+                child: Column(
+                  children: const [
+                    CircleAvatar(
+                      radius: 40,
+                      backgroundColor: Colors.white,
+                      child: Icon(Icons.person,
+                          size: 50, color: Colors.deepPurple),
+                    ),
+                    SizedBox(height: 12),
+                    Text(
+                      "Profile & Settings",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 25),
 
-              TextFormField(
-                controller: _weightController,
-                decoration: const InputDecoration(
-                  labelText: "Weight (kg)",
-                  border: OutlineInputBorder(),
+              // Form Card
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.85),
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 10,
+                      offset: const Offset(0, 5),
+                    )
+                  ],
                 ),
-                keyboardType: TextInputType.number,
-              ),
-              const SizedBox(height: 16),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildFieldLabel("Name"),
+                      TextFormField(
+                        controller: _nameController,
+                        decoration: _inputDecoration(),
+                        validator: (value) =>
+                            value!.isEmpty ? "Please enter your name" : null,
+                      ),
+                      const SizedBox(height: 20),
 
-              TextFormField(
-                controller: _heightController,
-                decoration: const InputDecoration(
-                  labelText: "Height (cm)",
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.number,
-              ),
-              const SizedBox(height: 24),
+                      _buildFieldLabel("Age"),
+                      TextFormField(
+                        controller: _ageController,
+                        decoration: _inputDecoration(),
+                        keyboardType: TextInputType.number,
+                        validator: (value) =>
+                            value!.isEmpty ? "Please enter your age" : null,
+                      ),
+                      const SizedBox(height: 20),
 
-              ElevatedButton(
-                onPressed: _saveProfile,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.teal,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12)),
-                ),
-                child: const Text(
-                  "Save Profile",
-                  style: TextStyle(fontSize: 18, color: Colors.white),
+                      _buildFieldLabel("Gender"),
+                      DropdownButtonFormField<String>(
+                        isExpanded: true,
+                        value: _selectedGender,
+                        items: ["Male", "Female", "Other"]
+                            .map((gender) => DropdownMenuItem(
+                                  value: gender,
+                                  child: Text(gender),
+                                ))
+                            .toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedGender = value!;
+                          });
+                        },
+                        decoration: _inputDecoration(),
+                      ),
+                      const SizedBox(height: 20),
+
+                      _buildFieldLabel("Weight (kg)"),
+                      TextFormField(
+                        controller: _weightController,
+                        decoration: _inputDecoration(),
+                        keyboardType: TextInputType.number,
+                      ),
+                      const SizedBox(height: 20),
+
+                      _buildFieldLabel("Height (cm)"),
+                      TextFormField(
+                        controller: _heightController,
+                        decoration: _inputDecoration(),
+                        keyboardType: TextInputType.number,
+                      ),
+                      const SizedBox(height: 30),
+
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: _saveProfile,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.deepPurple,
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12)),
+                          ),
+                          child: const Text(
+                            "Save Profile",
+                            style: TextStyle(fontSize: 18, color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
