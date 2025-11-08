@@ -56,3 +56,4 @@ flutter:
     - assets\data\nutrition_database.json
     - assets\data\symptoms_database.json
     - assets\data\doctors_database.json
+    - assets\data\activities_database.json
