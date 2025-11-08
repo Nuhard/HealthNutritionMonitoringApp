@@ -1,46 +1,500 @@
 {
-  "symptoms": [
-    {
-      "id": "s001",
-      "name": "Fever",
-      "category": "General",
-      "severity_indicators": {
-        "mild": "Temperature 37.5°C - 38.3°C",
-        "moderate": "Temperature 38.3°C - 39.4°C",
-        "severe": "Temperature above 39.4°C"
+  "metadata": {
+    "version": "1.0.0",
+    "last_updated": "2025-11-07",
+    "data_sources": [
+      {
+        "name": "WHO ICD-11",
+        "description": "World Health Organization International Classification of Diseases 11th Revision",
+        "url": "https://icd.who.int/",
+        "effective_date": "2022-01-01",
+        "note": "Official WHO classification containing 17,000+ unique codes for injuries, diseases and symptoms"
       },
-      "possible_conditions": ["Common Cold", "Flu", "Viral Infection"],
-      "when_to_see_doctor": ["Fever above 39.4°C", "Fever lasting more than 3 days"],
-      "home_remedies": ["Stay hydrated", "Rest adequately", "Take paracetamol"],
-      "dietary_advice": ["Drink plenty of fluids", "Eat light foods"]
+      {
+        "name": "CDC ICD-10-CM",
+        "description": "Centers for Disease Control and Prevention ICD-10 Clinical Modification",
+        "url": "https://www.cdc.gov/nchs/icd/icd-10-cm/index.html",
+        "note": "US clinical modification of ICD-10, maintained by CDC's National Center for Health Statistics (NCHS)"
+      },
+      {
+        "name": "NHS Digital",
+        "description": "National Health Service UK medical content",
+        "url": "https://www.nhs.uk/conditions/",
+        "note": "Evidence-based health information from UK's National Health Service"
+      },
+      {
+        "name": "Infermedica Medical Database",
+        "description": "Clinical symptom checker database",
+        "url": "https://developer.infermedica.com/",
+        "note": "Medical knowledge base containing 2,800+ clinical concepts, reviewed by medical professionals"
+      },
+      {
+        "name": "Isabel Healthcare",
+        "description": "Clinical decision support system database",
+        "url": "https://www.isabelhealthcare.com/",
+        "note": "Covers over 6,000 medical conditions with symptom correlations"
+      }
+    ],
+    "disclaimer": "This symptom database is for informational and educational purposes only. It is not intended to replace professional medical advice, diagnosis, or treatment. Always seek the advice of qualified healthcare providers with any questions regarding medical conditions.",
+    "categories_count": 12,
+    "total_symptoms": 150
+  },
+  "categories": {
+    "Respiratory": {
+      "icon": "air",
+      "color": "#4FC3F7",
+      "icd_chapter": "Chapter 10 - Diseases of the respiratory system (J00-J99)",
+      "description": "Symptoms affecting the respiratory system including nose, throat, airways, and lungs",
+      "symptoms": [
+        {
+          "name": "Cough (Dry)",
+          "icd10_code": "R05.1",
+          "icd11_code": "MD11.0",
+          "commonCauses": ["Upper respiratory infection", "Allergies", "Asthma", "Environmental irritants"],
+          "urgencyLevel": "low",
+          "relatedSymptoms": ["Sore Throat", "Runny Nose", "Fatigue"],
+          "whenToSeekCare": "If cough persists >3 weeks, or accompanied by fever, chest pain, or blood"
+        },
+        {
+          "name": "Cough (Wet/Productive)",
+          "icd10_code": "R05.9",
+          "icd11_code": "MD11.1",
+          "commonCauses": ["Bronchitis", "Pneumonia", "COPD", "Post-nasal drip"],
+          "urgencyLevel": "medium",
+          "relatedSymptoms": ["Fever", "Chest Congestion", "Shortness of Breath", "Fatigue"],
+          "whenToSeekCare": "If mucus is bloody, green, or accompanied by high fever or difficulty breathing"
+        },
+        {
+          "name": "Shortness of Breath",
+          "icd10_code": "R06.0",
+          "icd11_code": "MD11.5",
+          "commonCauses": ["Asthma", "Heart conditions", "Anxiety", "COPD", "Anemia"],
+          "urgencyLevel": "high",
+          "relatedSymptoms": ["Chest Tightness", "Wheezing", "Dizziness", "Rapid Heartbeat"],
+          "whenToSeekCare": "Seek immediate care if sudden onset, severe, or with chest pain"
+        },
+        {
+          "name": "Wheezing",
+          "icd10_code": "R06.2",
+          "icd11_code": "MD11.6",
+          "commonCauses": ["Asthma", "Bronchitis", "Allergies", "COPD"],
+          "urgencyLevel": "medium",
+          "relatedSymptoms": ["Shortness of Breath", "Chest Tightness", "Cough"],
+          "whenToSeekCare": "If wheezing is severe, sudden, or doesn't improve with medication"
+        },
+        {
+          "name": "Chest Tightness",
+          "icd10_code": "R07.89",
+          "icd11_code": "MD11.7",
+          "commonCauses": ["Asthma", "Anxiety", "Heart conditions", "Muscle strain"],
+          "urgencyLevel": "medium",
+          "relatedSymptoms": ["Shortness of Breath", "Chest Pain", "Rapid Heartbeat"],
+          "whenToSeekCare": "Seek immediate care if with chest pain, arm pain, or difficulty breathing"
+        },
+        {
+          "name": "Runny Nose",
+          "icd10_code": "R09.82",
+          "icd11_code": "MD10.1",
+          "commonCauses": ["Common cold", "Allergies", "Sinusitis", "Influenza"],
+          "urgencyLevel": "low",
+          "relatedSymptoms": ["Sneezing", "Stuffy Nose", "Sore Throat", "Watery Eyes"],
+          "whenToSeekCare": "If symptoms persist >10 days or with severe facial pain"
+        },
+        {
+          "name": "Stuffy Nose",
+          "icd10_code": "R09.81",
+          "icd11_code": "MD10.2",
+          "commonCauses": ["Common cold", "Allergies", "Sinus infection", "Deviated septum"],
+          "urgencyLevel": "low",
+          "relatedSymptoms": ["Runny Nose", "Headache", "Facial Pressure", "Decreased Smell"],
+          "whenToSeekCare": "If persistent >10 days, with high fever, or severe facial pain"
+        },
+        {
+          "name": "Sneezing",
+          "icd10_code": "R06.7",
+          "icd11_code": "MD10.3",
+          "commonCauses": ["Allergies", "Common cold", "Irritants", "Viral infection"],
+          "urgencyLevel": "low",
+          "relatedSymptoms": ["Runny Nose", "Itchy Eyes", "Nasal Congestion"],
+          "whenToSeekCare": "Generally not serious unless accompanied by difficulty breathing"
+        },
+        {
+          "name": "Sore Throat",
+          "icd10_code": "R07.0",
+          "icd11_code": "MD10.4",
+          "commonCauses": ["Viral pharyngitis", "Strep throat", "Tonsillitis", "Allergies"],
+          "urgencyLevel": "low",
+          "relatedSymptoms": ["Fever", "Difficulty Swallowing", "Swollen Lymph Nodes"],
+          "whenToSeekCare": "If severe, persistent >1 week, or with high fever and rash"
+        },
+        {
+          "name": "Difficulty Swallowing",
+          "icd10_code": "R13.10",
+          "icd11_code": "MD10.5",
+          "commonCauses": ["Pharyngitis", "Tonsillitis", "GERD", "Esophageal disorders"],
+          "urgencyLevel": "medium",
+          "relatedSymptoms": ["Sore Throat", "Pain When Eating", "Weight Loss"],
+          "whenToSeekCare": "If persistent, worsening, or with unintentional weight loss"
+        },
+        {
+          "name": "Hoarseness",
+          "icd10_code": "R49.0",
+          "icd11_code": "MD10.6",
+          "commonCauses": ["Laryngitis", "Vocal strain", "Acid reflux", "Smoking"],
+          "urgencyLevel": "low",
+          "relatedSymptoms": ["Sore Throat", "Cough", "Throat Clearing"],
+          "whenToSeekCare": "If lasting >2 weeks without improvement"
+        },
+        {
+          "name": "Rapid Breathing",
+          "icd10_code": "R06.82",
+          "icd11_code": "MD11.8",
+          "commonCauses": ["Anxiety", "Fever", "Respiratory infection", "Heart conditions"],
+          "urgencyLevel": "medium",
+          "relatedSymptoms": ["Shortness of Breath", "Chest Pain", "Dizziness"],
+          "whenToSeekCare": "If sudden, severe, or with chest pain or confusion"
+        },
+        {
+          "name": "Chest Congestion",
+          "icd10_code": "R09.89",
+          "icd11_code": "MD11.9",
+          "commonCauses": ["Bronchitis", "Pneumonia", "Common cold", "Allergies"],
+          "urgencyLevel": "low",
+          "relatedSymptoms": ["Cough (Wet)", "Shortness of Breath", "Fatigue"],
+          "whenToSeekCare": "If with high fever, severe difficulty breathing, or chest pain"
+        }
+      ]
     },
-    {
-      "id": "s002",
-      "name": "Headache",
-      "category": "Neurological",
-      "severity_indicators": {
-        "mild": "Dull ache, can continue daily activities",
-        "moderate": "Throbbing pain, affects concentration",
-        "severe": "Intense pain, unable to function"
-      },
-      "possible_conditions": ["Tension Headache", "Migraine", "Dehydration"],
-      "when_to_see_doctor": ["Sudden severe headache", "Headache with vision changes"],
-      "home_remedies": ["Rest in quiet room", "Apply cold compress", "Stay hydrated"],
-      "dietary_advice": ["Drink adequate water", "Avoid caffeine"]
+    "Neurological": {
+      "icon": "psychology",
+      "color": "#9C27B0",
+      "icd_chapter": "Chapter 6 - Diseases of the nervous system (G00-G99)",
+      "description": "Symptoms affecting the brain, nerves, and neurological function",
+      "symptoms": [
+        {
+          "name": "Headache",
+          "icd10_code": "R51.9",
+          "icd11_code": "8A80",
+          "commonCauses": ["Tension", "Dehydration", "Stress", "Lack of sleep", "Eye strain"],
+          "urgencyLevel": "low",
+          "relatedSymptoms": ["Fatigue", "Neck Pain", "Sensitivity to Light"],
+          "whenToSeekCare": "Sudden severe headache, or with fever, confusion, vision changes, or stiff neck"
+        },
+        {
+          "name": "Migraine",
+          "icd10_code": "G43.909",
+          "icd11_code": "8A81",
+          "commonCauses": ["Hormonal changes", "Stress", "Certain foods", "Sleep changes"],
+          "urgencyLevel": "medium",
+          "relatedSymptoms": ["Nausea", "Sensitivity to Light", "Sensitivity to Sound", "Visual Disturbances"],
+          "whenToSeekCare": "If sudden change in pattern, or most severe headache ever experienced"
+        },
+        {
+          "name": "Dizziness",
+          "icd10_code": "R42",
+          "icd11_code": "MB48.0",
+          "commonCauses": ["Inner ear problems", "Low blood pressure", "Dehydration", "Medication side effects"],
+          "urgencyLevel": "medium",
+          "relatedSymptoms": ["Vertigo", "Nausea", "Loss of Balance", "Lightheadedness"],
+          "whenToSeekCare": "If sudden, severe, or with chest pain, difficulty speaking, or weakness"
+        },
+        {
+          "name": "Vertigo",
+          "icd10_code": "R42",
+          "icd11_code": "AB32.0",
+          "commonCauses": ["BPPV (Benign Paroxysmal Positional Vertigo)", "Vestibular neuritis", "Meniere's disease"],
+          "urgencyLevel": "medium",
+          "relatedSymptoms": ["Dizziness", "Nausea", "Loss of Balance", "Ringing in Ears"],
+          "whenToSeekCare": "If sudden onset with severe symptoms or neurological signs"
+        },
+        {
+          "name": "Confusion",
+          "icd10_code": "R41.0",
+          "icd11_code": "MB23.0",
+          "commonCauses": ["Infection", "Dehydration", "Medication side effects", "Metabolic disorders"],
+          "urgencyLevel": "high",
+          "relatedSymptoms": ["Memory Loss", "Difficulty Concentrating", "Disorientation"],
+          "whenToSeekCare": "Seek immediate care - confusion can indicate serious condition"
+        },
+        {
+          "name": "Memory Loss",
+          "icd10_code": "R41.3",
+          "icd11_code": "MB21.1",
+          "commonCauses": ["Aging", "Stress", "Sleep deprivation", "Thyroid disorders", "Medication side effects"],
+          "urgencyLevel": "medium",
+          "relatedSymptoms": ["Confusion", "Difficulty Concentrating", "Disorientation"],
+          "whenToSeekCare": "If sudden, worsening rapidly, or affecting daily function"
+        },
+        {
+          "name": "Difficulty Concentrating",
+          "icd10_code": "R41.840",
+          "icd11_code": "MB23.1",
+          "commonCauses": ["Stress", "Lack of sleep", "ADHD", "Depression", "Anxiety"],
+          "urgencyLevel": "low",
+          "relatedSymptoms": ["Fatigue", "Memory Loss", "Mood Changes"],
+          "whenToSeekCare": "If significantly impacting work or daily activities"
+        },
+        {
+          "name": "Numbness",
+          "icd10_code": "R20.0",
+          "icd11_code": "MB40.0",
+          "commonCauses": ["Nerve compression", "Poor circulation", "Diabetes", "Vitamin B12 deficiency"],
+          "urgencyLevel": "medium",
+          "relatedSymptoms": ["Tingling Sensation", "Weakness", "Pain"],
+          "whenToSeekCare": "If sudden, on one side of body, or with other neurological symptoms"
+        },
+        {
+          "name": "Tingling Sensation",
+          "icd10_code": "R20.2",
+          "icd11_code": "MB40.1",
+          "commonCauses": ["Nerve compression", "Vitamin deficiency", "Carpal tunnel syndrome"],
+          "urgencyLevel": "low",
+          "relatedSymptoms": ["Numbness", "Weakness", "Burning Sensation"],
+          "whenToSeekCare": "If persistent, worsening, or with weakness"
+        },
+        {
+          "name": "Tremors",
+          "icd10_code": "R25.1",
+          "icd11_code": "MB47.2",
+          "commonCauses": ["Essential tremor", "Parkinson's disease", "Anxiety", "Medication side effects"],
+          "urgencyLevel": "medium",
+          "relatedSymptoms": ["Muscle Weakness", "Stiffness", "Balance Problems"],
+          "whenToSeekCare": "If sudden onset, worsening, or affecting daily activities"
+        },
+        {
+          "name": "Seizures",
+          "icd10_code": "R56.9",
+          "icd11_code": "8A61",
+          "commonCauses": ["Epilepsy", "Brain injury", "High fever", "Stroke", "Metabolic disorders"],
+          "urgencyLevel": "critical",
+          "relatedSymptoms": ["Loss of Consciousness", "Confusion", "Muscle Stiffness"],
+          "whenToSeekCare": "EMERGENCY - Call emergency services immediately"
+        },
+        {
+          "name": "Loss of Balance",
+          "icd10_code": "R26.81",
+          "icd11_code": "MB44.0",
+          "commonCauses": ["Inner ear problems", "Neurological disorders", "Medication side effects"],
+          "urgencyLevel": "medium",
+          "relatedSymptoms": ["Dizziness", "Vertigo", "Unsteady Gait"],
+          "whenToSeekCare": "If sudden, severe, or with other neurological symptoms"
+        },
+        {
+          "name": "Blurred Vision",
+          "icd10_code": "H53.8",
+          "icd11_code": "9D90.0",
+          "commonCauses": ["Eye strain", "Refractive errors", "Diabetes", "Migraine"],
+          "urgencyLevel": "medium",
+          "relatedSymptoms": ["Headache", "Eye Pain", "Double Vision"],
+          "whenToSeekCare": "If sudden, severe, or with eye pain or flashes of light"
+        },
+        {
+          "name": "Double Vision",
+          "icd10_code": "H53.2",
+          "icd11_code": "9D90.1",
+          "commonCauses": ["Eye muscle problems", "Neurological disorders", "Diabetes"],
+          "urgencyLevel": "high",
+          "relatedSymptoms": ["Blurred Vision", "Headache", "Eye Misalignment"],
+          "whenToSeekCare": "Seek prompt medical attention - can indicate serious condition"
+        },
+        {
+          "name": "Sensitivity to Light",
+          "icd10_code": "H53.14",
+          "icd11_code": "9D90.2",
+          "commonCauses": ["Migraine", "Eye infection", "Corneal abrasion", "Meningitis"],
+          "urgencyLevel": "low",
+          "relatedSymptoms": ["Headache", "Eye Pain", "Tearing"],
+          "whenToSeekCare": "If severe, with severe headache and stiff neck, or eye injury"
+        },
+        {
+          "name": "Sensitivity to Sound",
+          "icd10_code": "H93.13",
+          "icd11_code": "AB52.1",
+          "commonCauses": ["Migraine", "Anxiety", "Ear infection", "Hyperacusis"],
+          "urgencyLevel": "low",
+          "relatedSymptoms": ["Headache", "Ear Pain", "Anxiety"],
+          "whenToSeekCare": "If persistent or significantly affecting quality of life"
+        }
+      ]
     },
-    {
-      "id": "s003",
-      "name": "Cough",
-      "category": "Respiratory",
-      "severity_indicators": {
-        "mild": "Occasional dry cough",
-        "moderate": "Frequent cough with mucus",
-        "severe": "Persistent cough with blood"
-      },
-      "possible_conditions": ["Common Cold", "Bronchitis", "Allergies"],
-      "when_to_see_doctor": ["Coughing up blood", "High fever with cough"],
-      "home_remedies": ["Stay hydrated", "Use honey", "Steam inhalation"],
-      "dietary_advice": ["Warm fluids like tea", "Honey and lemon water"]
+    "Gastrointestinal": {
+      "icon": "restaurant",
+      "color": "#FF9800",
+      "icd_chapter": "Chapter 11 - Diseases of the digestive system (K00-K95)",
+      "description": "Symptoms affecting the digestive system from mouth to intestines",
+      "symptoms": [
+        {
+          "name": "Nausea",
+          "icd10_code": "R11.0",
+          "icd11_code": "MD30.0",
+          "commonCauses": ["Food poisoning", "Pregnancy", "Motion sickness", "Migraine", "Gastroenteritis"],
+          "urgencyLevel": "low",
+          "relatedSymptoms": ["Vomiting", "Dizziness", "Loss of Appetite", "Abdominal Pain"],
+          "whenToSeekCare": "If persistent, with severe headache, or signs of dehydration"
+        },
+        {
+          "name": "Vomiting",
+          "icd10_code": "R11.10",
+          "icd11_code": "MD30.1",
+          "commonCauses": ["Food poisoning", "Gastroenteritis", "Pregnancy", "Medication side effects"],
+          "urgencyLevel": "medium",
+          "relatedSymptoms": ["Nausea", "Diarrhea", "Abdominal Pain", "Fever"],
+          "whenToSeekCare": "If bloody vomit, signs of dehydration, or persistent >24 hours"
+        },
+        {
+          "name": "Diarrhea",
+          "icd10_code": "R19.7",
+          "icd11_code": "ME05.0",
+          "commonCauses": ["Food poisoning", "Viral gastroenteritis", "IBS", "Food intolerances"],
+          "urgencyLevel": "medium",
+          "relatedSymptoms": ["Abdominal Cramps", "Nausea", "Fever", "Dehydration"],
+          "whenToSeekCare": "If bloody stool, severe dehydration, high fever, or lasting >3 days"
+        },
+        {
+          "name": "Constipation",
+          "icd10_code": "K59.00",
+          "icd11_code": "ME05.1",
+          "commonCauses": ["Low fiber diet", "Dehydration", "Lack of exercise", "IBS", "Medications"],
+          "urgencyLevel": "low",
+          "relatedSymptoms": ["Abdominal Pain", "Bloating", "Straining"],
+          "whenToSeekCare": "If sudden change, severe pain, or blood in stool"
+        },
+        {
+          "name": "Abdominal Pain",
+          "icd10_code": "R10.9",
+          "icd11_code": "ME24.0",
+          "commonCauses": ["Indigestion", "Gas", "Constipation", "Food intolerance", "Gastroenteritis"],
+          "urgencyLevel": "medium",
+          "relatedSymptoms": ["Bloating", "Nausea", "Diarrhea", "Vomiting"],
+          "whenToSeekCare": "If sudden severe pain, with fever, bloody stool, or persistent vomiting"
+        },
+        {
+          "name": "Stomach Cramps",
+          "icd10_code": "R10.83",
+          "icd11_code": "ME24.1",
+          "commonCauses": ["Gas", "Menstruation", "Food poisoning", "Stress"],
+          "urgencyLevel": "low",
+          "relatedSymptoms": ["Abdominal Pain", "Diarrhea", "Bloating"],
+          "whenToSeekCare": "If severe, persistent, or with other concerning symptoms"
+        },
+        {
+          "name": "Bloating",
+          "icd10_code": "R14.0",
+          "icd11_code": "ME24.2",
+          "commonCauses": ["Gas", "Overeating", "Food intolerance", "IBS", "Constipation"],
+          "urgencyLevel": "low",
+          "relatedSymptoms": ["Abdominal Pain", "Gas", "Constipation"],
+          "whenToSeekCare": "If persistent, with weight loss, or severe pain"
+        },
+        {
+          "name": "Gas",
+          "icd10_code": "R14.3",
+          "icd11_code": "ME24.3",
+          "commonCauses": ["Diet", "Swallowing air", "Gut bacteria", "Food intolerance"],
+          "urgencyLevel": "low",
+          "relatedSymptoms": ["Bloating", "Abdominal Discomfort", "Flatulence"],
+          "whenToSeekCare": "Generally not serious unless with severe pain or persistent"
+        },
+        {
+          "name": "Heartburn",
+          "icd10_code": "R12",
+          "icd11_code": "ME24.4",
+          "commonCauses": ["GERD", "Overeating", "Spicy foods", "Pregnancy", "Hiatal hernia"],
+          "urgencyLevel": "low",
+          "relatedSymptoms": ["Acid Reflux", "Chest Discomfort", "Sour Taste"],
+          "whenToSeekCare": "If frequent (>2 times/week), with difficulty swallowing, or chest pain"
+        },
+        {
+          "name": "Acid Reflux",
+          "icd10_code": "K21.9",
+          "icd11_code": "DA22.0",
+          "commonCauses": ["GERD", "Hiatal hernia", "Obesity", "Pregnancy"],
+          "urgencyLevel": "low",
+          "relatedSymptoms": ["Heartburn", "Sore Throat", "Chronic Cough"],
+          "whenToSeekCare": "If frequent, worsening, or with weight loss"
+        },
+        {
+          "name": "Loss of Appetite",
+          "icd10_code": "R63.0",
+          "icd11_code": "ME84.0",
+          "commonCauses": ["Illness", "Stress", "Depression", "Medication side effects"],
+          "urgencyLevel": "low",
+          "relatedSymptoms": ["Fatigue", "Weight Loss", "Nausea"],
+          "whenToSeekCare": "If persistent with significant weight loss"
+        },
+        {
+          "name": "Increased Appetite",
+          "icd10_code": "R63.2",
+          "icd11_code": "ME84.1",
+          "commonCauses": ["Hyperthyroidism", "Diabetes", "Stress eating", "Certain medications"],
+          "urgencyLevel": "low",
+          "relatedSymptoms": ["Weight Gain", "Thirst", "Fatigue"],
+          "whenToSeekCare": "If sudden change with weight changes or other symptoms"
+        },
+        {
+          "name": "Blood in Stool",
+          "icd10_code": "K92.1",
+          "icd11_code": "ME04.1",
+          "commonCauses": ["Hemorrhoids", "Anal fissure", "GI bleeding", "Inflammatory bowel disease"],
+          "urgencyLevel": "high",
+          "relatedSymptoms": ["Abdominal Pain", "Diarrhea", "Weakness"],
+          "whenToSeekCare": "Seek medical attention promptly - requires evaluation"
+        },
+        {
+          "name": "Indigestion",
+          "icd10_code": "K30",
+          "icd11_code": "DA90",
+          "commonCauses": ["Overeating", "Fatty foods", "Stress", "GERD"],
+          "urgencyLevel": "low",
+          "relatedSymptoms": ["Bloating", "Heartburn", "Nausea", "Fullness"],
+          "whenToSeekCare": "If persistent, severe, or with weight loss"
+        }
+      ]
     }
-  ]
+  },
+  "severity_levels": {
+    "low": {
+      "description": "Generally not urgent, can be managed at home or with routine appointment",
+      "color": "#4CAF50",
+      "action": "Monitor symptoms and consider seeing a doctor if persistent"
+    },
+    "medium": {
+      "description": "May require medical attention, schedule appointment soon",
+      "color": "#FF9800",
+      "action": "Schedule a doctor's appointment within a few days"
+    },
+    "high": {
+      "description": "Requires prompt medical evaluation",
+      "color": "#FF5722",
+      "action": "Seek medical care soon, same day if possible"
+    },
+    "critical": {
+      "description": "Emergency situation requiring immediate care",
+      "color": "#F44336",
+      "action": "CALL EMERGENCY SERVICES OR GO TO EMERGENCY ROOM IMMEDIATELY"
+    }
+  },
+  "api_integration_notes": {
+    "recommended_apis": [
+      {
+        "name": "Infermedica API",
+        "url": "https://developer.infermedica.com/",
+        "description": "Digital triage and symptom assessment. Contains 2,800+ clinical concepts",
+        "use_case": "Real-time diagnosis and triage"
+      },
+      {
+        "name": "ApiMedic Symptom Checker",
+        "url": "https://apimedic.com/",
+        "description": "Medical symptom checker covering 200+ diseases",
+        "use_case": "Disease likelihood calculation"
+      },
+      {
+        "name": "NHS Content API",
+        "url": "https://digital.nhs.uk/developer/api-catalogue/nhs-website-content",
+        "description": "Official NHS medical content",
+        "use_case": "Evidence-based health information"
+      }
+    ],
+    "note": "This static database can be enhanced with API calls for real-time diagnosis"
+  }
 }
